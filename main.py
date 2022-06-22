@@ -87,7 +87,7 @@ def load_user(user_id):
     return Users.query.get(user_id)
 
 
-@app.route('/')
+@app.route('/home')
 def get_all_posts():
     posts = BlogPost.query.all()
     return render_template("index.html", all_posts=posts)
@@ -103,7 +103,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)
-            return redirect('/')
+            return redirect('/home')
     except IntegrityError:
         if Users.query.filter_by(email=form.email.data):
             flash('Your email is in our database. Log in instead')
@@ -121,7 +121,7 @@ def login():
             if check_password_hash(Users.query.filter_by(email=form.email.data).first().password, form.password.data):
                 user = Users.query.filter_by(email=form.email.data).first()
                 login_user(user)
-                return redirect('/')
+                return redirect('/home')
             else:
                 flash('Sorry, wrong password')
                 return redirect(url_for('login'))
