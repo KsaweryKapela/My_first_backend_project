@@ -1,7 +1,6 @@
-import os
+from dotenv import load_dotenv
 from datetime import date
 from functools import wraps
-from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -13,17 +12,17 @@ from sqlalchemy.orm import relationship
 from werkzeug.exceptions import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
+import os
 load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
-    #os.getenv("KEY")
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 login_manager = LoginManager()
 login_manager.init_app(app)
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
