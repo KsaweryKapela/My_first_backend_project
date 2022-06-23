@@ -16,7 +16,8 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("KEY")
+app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
+    #os.getenv("KEY")
 login_manager = LoginManager()
 login_manager.init_app(app)
 ckeditor = CKEditor(app)
